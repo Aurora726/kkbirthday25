@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firework</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: black;
+        }
+        #gift-box {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        video {
+            width: 1366px;
+            height: 768px;
+        }
+    </style>
+</head>
+<body>
+
+    <video id="fireworkVideo" controls autoplay>
+        <source src="firework.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <img id="gift-box" src="礼物盒.png" alt="Gift Box" onclick="goToMainPage()" />
+
+    <script>
+        const video = document.getElementById('fireworkVideo');
+        const giftBox = document.getElementById('gift-box');
+
+        video.onended = function() {
+            video.style.display = 'none';
+            giftBox.style.display = 'block';
+        };
+
+        function goToMainPage() {
+            window.location.href = 'main.html';
+        }
+    </script>
+</body>
+</html>

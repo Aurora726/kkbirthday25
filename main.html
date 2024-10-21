@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KK的生日主页</title>
+    <style>
+        @font-face {
+            font-family: "CustomFont";
+            src: url("字体.ttf");
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: url("1.png") no-repeat center center fixed;
+            background-size: cover;
+            overflow-x: hidden;
+        }
+
+        audio {
+            display: none;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 48px;
+            color: #000;
+            margin: 40px 0;
+            font-family: "CustomFont", sans-serif;
+        }
+
+        .content {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .route-map {
+            display: block;
+            margin: 20px auto;
+            max-width: 60%;
+            height: auto;
+        }
+
+        .scrolling-photos {
+            display: flex;
+            overflow: hidden;
+            white-space: nowrap;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .scrolling-photos img {
+            height: 150px;
+            margin: 0 10px;
+            animation: scrollPhotos 30s linear infinite;
+        }
+
+        @keyframes scrollPhotos {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .panda {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            height: 100px;
+            cursor: pointer;
+        }
+
+        .map-popup {
+            display: none;
+            position: fixed;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50vw;
+            z-index: 100;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 99;
+        }
+
+        .scrolling-text {
+            display: none;
+            position: fixed;
+            bottom: 10%;
+            width: 80%;
+            max-width: 800px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 18px;
+            color: #fff;
+            z-index: 200;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            text-align: center;
+            line-height: 1.5;
+            overflow: hidden;
+            height: 40%;
+        }
+
+        .scrolling-text div {
+            animation: scrollText 60s linear infinite;
+            display: inline-block;
+            white-space: nowrap;
+        }
+
+        @keyframes scrollText {
+            0% { transform: translateY(100%); }
+            100% { transform: translateY(-100%); }
+        }
+
+        .image-fade {
+            position: absolute;
+            opacity: 0;
+            animation: fadeInOut 10s ease-in-out infinite;
+            height: 120px; /* 增大图片尺寸 */
+            z-index: 250;
+        }
+
+        .image-left {
+            left: 10%;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .image-right {
+            right: 10%;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <audio id="bg-music" loop>
+        <source src="happy birthday bg.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <h1>KK的生日主页</h1>
+
+    <div class="content">
+        <img src="成长轨迹.png" alt="成长轨迹" class="route-map">
+        <div class="scrolling-photos">
+            <img src="背影1.jpg" alt="Photo 1">
+            <img src="背影2.jpg" alt="Photo 2">
+            <img src="背影3.jpg" alt="Photo 3">
+            <img src="背影4.jpg" alt="Photo 4">
+            <img src="18岁.jpg" alt="Photo 5">
+            <img src="初中.jpg" alt="Photo 6">
+            <img src="正面.jpg" alt="Photo 7">
+        </div>
+        <a href="#" onclick="playMusicAndShowMap(); return false;">
+            <img src="熊猫.png" alt="Panda" class="panda">
+        </a>
+    </div>
+
+    <div class="overlay" onclick="hideMap()"></div>
+    <img src="世界地图.png" alt="World Map" class="map-popup">
+
+    <div class="scrolling-text">
+        <div>2023.10.22 - 2024.10.22<br><br>
+        kk从巴黎回到了昆明，从昆明来到了深圳，<br>
+        又从深圳回到了昆明。<br>
+        去了尼斯，罗马，佛罗伦萨；<br>
+        北京，香港，南澳岛和埃及。<br><br>
+        kk尝试和面向对象编程作斗争，<br>
+        尝试文字创作，<br>
+        尝试做外贸，<br>
+        尝试拥抱昆明的自由。<br>
+        尝试感受爱。<br><br>
+        kk去年生日的时候，我在上海的公交车上。<br>
+        你说你并不开心。<br>
+        kk今年生日，希望你能开心。<br><br>
+        也许就像你去年说的，今年已经经历了很多，<br>
+        果然有更多的回忆涌上心头。<br><br>
+        所以不要害怕新的一岁，因为kk已经变得更强大了。<br><br>
+        已经可以以更强大的自我面对未来。<br><br>
+        生日快乐，柯轲。<br><br>
+        🎂</div>
+    </div>
+
+    <script>
+        let images = [
+            "罗马.jpg",
+            "穆里尼奥.jpg",
+            "isart.jpg",
+            "尼斯.jpg",
+            "巴黎.jpg",
+            "牛排.jpg",
+            "昆明.jpg",
+            "炒饭.jpg",
+            "埃及.jpg",
+            "南澳岛.jpg",
+            "NIC.jpg",
+            "外贸.jpg"
+        ];
+        let i = 0;
+
+        function playMusicAndShowMap() {
+            const bgMusic = document.getElementById('bg-music');
+            bgMusic.play();
+            document.querySelector('.map-popup').style.display = 'block';
+            document.querySelector('.overlay').style.display = 'block';
+            document.querySelector('.content').style.display = 'none';
+            showScrollingText();
+            setTimeout(fadeInOutImages, 100); // 提前调用淡入淡出图片函数，使其更及时
+        }
+
+        function hideMap() {
+            document.querySelector('.map-popup').style.display = 'none';
+            document.querySelector('.overlay').style.display = 'none';
+        }
+
+        function showScrollingText() {
+            const textContainer = document.querySelector('.scrolling-text');
+            textContainer.style.display = 'block';
+        }
+
+        function fadeInOutImages() {
+            if (i < images.length) {
+                let img = document.createElement('img');
+                img.src = images[i];
+                img.classList.add('image-fade');
+                if (i % 2 === 0) {
+                    img.classList.add('image-left');
+                } else {
+                    img.classList.add('image-right');
+                }
+                document.body.appendChild(img);
+
+                i++;
+                setTimeout(() => {
+                    img.remove();
+                    fadeInOutImages();
+                }, 5000);
+            }
+        }
+    </script>
+</body>
+</html>
